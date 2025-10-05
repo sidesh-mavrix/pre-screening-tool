@@ -1,0 +1,6 @@
+How to Run the Application:
+Start your MongoDB server: Ensure your MongoDB instance is running, usually on mongodb://localhost:27017.
+Run the Nest.js application:
+Bash
+
+npm run start:dev
