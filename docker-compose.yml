@@ -23,22 +23,25 @@ services:
     environment:
       - NODE_ENV=production
       - MONGODB_URI=mongodb://mongodb:27017/projectdb
-      - JWT_SECRET=your-super-secret-jwt-key-change-in-production
+      - JWT_SECRET=your-super-secret-jwt-key-change-in-production # <-- IMPORTANT: Change this!
       - PORT=8000
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
+    # REMOVED the volumes section for deployment
 
   frontend:
-    build: ./screener-portal-new
+    build:
+      # We tell Docker where to find the Dockerfile
+      context: ./screener-portal-new
+      # And pass the correct API path as a build-time argument
+      args:
+        REACT_APP_API_URL: /api
     container_name: maverick-frontend
     restart: unless-stopped
     ports:
-      - "80:80"
+      # CHANGED to a safer port. You can change 3000 to 80 if you're sure it's free.
+      - "3000:80"
     depends_on:
       - backend
-    environment:
-      - REACT_APP_API_URL=http://localhost:8000
+    # REMOVED the incorrect environment variable
 
 volumes:
   mongodb_data:
