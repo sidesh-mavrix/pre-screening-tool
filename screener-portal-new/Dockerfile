@@ -3,7 +3,7 @@
 FROM node:18-alpine AS build
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 COPY . .
 # We don't need to pass the URL here anymore, as the proxy will handle it
 RUN npm run build
